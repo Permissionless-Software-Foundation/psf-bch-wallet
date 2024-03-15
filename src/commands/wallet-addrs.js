@@ -1,75 +1,58 @@
+import shelljs from "shelljs";
+import command from "@oclif/command";
 /*
   List the addresses for the selected wallet
 */
-
-'use strict'
-
-const shelljs = require('shelljs')
+'use strict';
 // const Table = require('cli-table')
-
-const { Command, flags } = require('@oclif/command')
-
+const { Command, flags } = command;
 class WalletAddrs extends Command {
-  constructor (argv, config) {
-    super(argv, config)
-
-    // Encapsulate dependencies.
-    this.shelljs = shelljs
-  }
-
-  async run () {
-    try {
-      const { flags } = this.parse(WalletAddrs)
-
-      // Validate input flags
-      this.validateFlags(flags)
-
-      const filename = `${__dirname.toString()}/../../.wallets/${
-        flags.name
-      }.json`
-
-      return this.getAddrs(filename)
-    } catch (err) {
-      console.log('Error in wallet-addrs.js: ', err.message)
-      return 0
+    constructor(argv, config) {
+        super(argv, config);
+        // Encapsulate dependencies.
+        this.shelljs = shelljs;
     }
-  }
-
-  getAddrs (filename) {
-    try {
-      // Load the wallet file.
-      const walletJSON = require(filename)
-      const walletData = walletJSON.wallet
-      // console.log('walletData: ', walletData)
-
-      console.log(' ')
-      console.log(`Cash Address: ${walletData.cashAddress}`)
-      console.log(`SLP Address: ${walletData.slpAddress}`)
-      console.log(`Legacy Address: ${walletData.legacyAddress}`)
-      console.log(' ')
-      return walletData
-    } catch (err) {
-      console.error('Error in getAddrs()')
-      throw err
+    async run() {
+        try {
+            const { flags } = this.parse(WalletAddrs);
+            // Validate input flags
+            this.validateFlags(flags);
+            const filename = `${__dirname.toString()}/../../.wallets/${flags.name}.json`;
+            return this.getAddrs(filename);
+        }
+        catch (err) {
+            console.log('Error in wallet-addrs.js: ', err.message);
+            return 0;
+        }
     }
-  }
-
-  // Validate the proper flags are passed in.
-  validateFlags (flags) {
-    // Exit if wallet not specified.
-    const name = flags.name
-    if (!name || name === '') {
-      throw new Error('You must specify a wallet with the -n flag.')
+    getAddrs(filename) {
+        try {
+            const walletData = walletJSON.wallet;
+            // console.log('walletData: ', walletData)
+            console.log(' ');
+            console.log(`Cash Address: ${walletData.cashAddress}`);
+            console.log(`SLP Address: ${walletData.slpAddress}`);
+            console.log(`Legacy Address: ${walletData.legacyAddress}`);
+            console.log(' ');
+            return walletData;
+        }
+        catch (err) {
+            console.error('Error in getAddrs()');
+            throw err;
+        }
     }
-
-    return true
-  }
+    // Validate the proper flags are passed in.
+    validateFlags(flags) {
+        // Exit if wallet not specified.
+        const name = flags.name;
+        if (!name || name === '') {
+            throw new Error('You must specify a wallet with the -n flag.');
+        }
+        return true;
+    }
 }
-
-WalletAddrs.description = 'List the different addresses for a wallet.'
-
+WalletAddrs.description = 'List the different addresses for a wallet.';
 WalletAddrs.flags = {
-  name: flags.string({ char: 'n', description: 'Name of wallet' })
-}
-
-module.exports = WalletAddrs
+    name: flags.string({ char: 'n', description: 'Name of wallet' })
+};
+export default WalletAddrs;
