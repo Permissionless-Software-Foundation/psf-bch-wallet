@@ -1,29 +1,29 @@
 // Mocks for msg-send command
 const getPubkeyResult = {
+  success: true,
+  status: 200,
+  endpoint: 'pubkey',
+  pubkey: {
     success: true,
-    status: 200,
-    endpoint: 'pubkey',
-    pubkey: {
-        success: true,
-        publicKey: '0337d09a94e10df1a1bd29d523cd496eca4da5c0cdaf0f66aa8871f5d1f9024bcf'
-    }
-};
-const getPubkeyErrorResult = {
-    success: false,
-    status: 422,
-    message: 'No transaction history.',
-    endpoint: 'pubkey'
-};
-class Write {
-    postEntry() {
-        return { hash: 'QmYJXDxuNjwFuAYaUdADPnxKZJhQSsx69Ww2rGk6VmAFQu' };
-    }
+    publicKey: '0337d09a94e10df1a1bd29d523cd496eca4da5c0cdaf0f66aa8871f5d1f9024bcf'
+  }
 }
-export { getPubkeyResult };
-export { getPubkeyErrorResult };
-export { Write };
+const getPubkeyErrorResult = {
+  success: false,
+  status: 422,
+  message: 'No transaction history.',
+  endpoint: 'pubkey'
+}
+class Write {
+  postEntry () {
+    return { hash: 'QmYJXDxuNjwFuAYaUdADPnxKZJhQSsx69Ww2rGk6VmAFQu' }
+  }
+}
+export { getPubkeyResult }
+export { getPubkeyErrorResult }
+export { Write }
 export default {
-    getPubkeyResult,
-    getPubkeyErrorResult,
-    Write
-};
+  getPubkeyResult,
+  getPubkeyErrorResult,
+  Write
+}
