@@ -2,6 +2,12 @@ import axios from "axios";
 import WalletUtil from "../lib/wallet-util.js";
 import command from "@oclif/command";
 const { Command, flags } = command;
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 class IpfsDownload extends Command {
     constructor(argv, config) {
         super(argv, config);

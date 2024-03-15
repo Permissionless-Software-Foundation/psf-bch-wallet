@@ -1,9 +1,12 @@
-import chai from "chai";
+
+// Global npm libraries
+import {assert} from "chai";
 import sinon from "sinon";
+
+// Local libraries
 import IpfsRelays from "../../../src/commands/ipfs-relays.js";
 import RelaysMock from "../../mocks/ipfs-relays-mock.js";
-'use strict';
-const assert = chai.assert;
+
 describe('#ipfs-relays', () => {
     let sandbox;
     let uut;

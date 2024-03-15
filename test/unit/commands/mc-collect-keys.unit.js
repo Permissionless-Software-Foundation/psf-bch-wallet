@@ -1,17 +1,25 @@
-import chai from "chai";
+/*
+  Unit tests for the mc-collect-keys command.
+*/
+
+// Global npm libraries
+import {assert} from "chai";
 import sinon from "sinon";
 import { promises } from "fs";
 import MCCollectKeys from "../../../src/commands/mc-collect-keys.js";
 import WalletCreate from "../../../src/commands/wallet-create.js";
-/*
-  Unit tests for the mc-collect-keys command.
-*/
-// Global npm libraries
-const assert = chai.assert;
+
 const fs = { promises }.promises;
 const walletCreate = new WalletCreate();
 // const MockWallet = require('../../mocks/msw-mock')
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`;
+
 describe('#mc-collect-keys', () => {
     let uut;
     let sandbox;

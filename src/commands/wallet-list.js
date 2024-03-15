@@ -4,7 +4,12 @@ import command from "@oclif/command";
 /*
   List out all the wallet .json files.
 */
-'use strict';
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 const { Command } = command;
 class WalletList extends Command {
     constructor(argv, config) {

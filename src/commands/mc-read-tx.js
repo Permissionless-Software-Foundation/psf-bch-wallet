@@ -1,5 +1,5 @@
 import command from "@oclif/command";
-import EncryptLib from "bch-encrypt-lib/index";
+import EncryptLib from "bch-encrypt-lib/index.js";
 import p2wdb from "p2wdb";
 import WalletUtil from "../lib/wallet-util.js";
 /*

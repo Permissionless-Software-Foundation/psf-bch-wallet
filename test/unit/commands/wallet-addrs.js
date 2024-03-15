@@ -10,7 +10,13 @@ import WalletCreate from "../../../src/commands/wallet-create.js";
 const assert = chai.assert;
 const fs = { promises }.promises;
 const walletCreate = new WalletCreate();
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`;
+
 describe('wallet-addrs', () => {
     let uut;
     let sandbox;

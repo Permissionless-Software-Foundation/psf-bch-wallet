@@ -10,7 +10,13 @@ const assert = chai.assert;
 // const {bitboxMock} = require('../mocks/bitbox')
 // const fs = require('fs')
 // const mock = require('mock-fs')
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`;
+
 describe('wallet-remove', () => {
     // let BITBOX
     let uut;

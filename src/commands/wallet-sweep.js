@@ -1,11 +1,17 @@
 import BchWallet from "minimal-slp-wallet";
 import Conf from "conf";
-import BchTokenSweep from "bch-token-sweep/index";
+import BchTokenSweep from "bch-token-sweep/index.js";
 import command from "@oclif/command";
 import WalletUtil from "../lib/wallet-util.js";
 const { Command, flags } = command;
 // Constants
 // const EMTPY_ADDR_CUTOFF = 3
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 class WalletSweep extends Command {
     constructor(argv, config) {
         super(argv, config);

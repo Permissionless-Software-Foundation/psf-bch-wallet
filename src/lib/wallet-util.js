@@ -1,14 +1,22 @@
+/*
+  Utility library for working with wallet files.
+*/
+
+// Global npm libraries
 import { promises } from "fs";
 import BCHJS from "@psf/bch-js";
 import Conf from "conf";
 import BchWallet from "minimal-slp-wallet";
-import MsgLib from "bch-message-lib/index";
-/*
-  Utility library for working with wallet files.
-*/
-// Global npm libraries.
+import MsgLib from "bch-message-lib/index.js";
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 const fs = { promises }.promises;
 let _this; // Global variable points at instance of this Class.
+
 class WalletUtil {
     constructor(localConfig = {}) {
         // Encapsulate dependencies

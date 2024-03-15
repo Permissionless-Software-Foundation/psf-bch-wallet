@@ -1,5 +1,5 @@
 import bitcore from "bitcore-lib-cash";
-import EncryptLib from "bch-encrypt-lib/index";
+import EncryptLib from "bch-encrypt-lib/index.js";
 import p2wdb from "p2wdb";
 import Conf from "conf";
 import WalletUtil from "../lib/wallet-util.js";

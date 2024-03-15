@@ -5,7 +5,12 @@ import command from "@oclif/command";
 /*
   Sends a quantity of BCH.
 */
-'use strict';
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 const { Command, flags } = command;
 class SendBch extends Command {
     constructor(argv, config) {

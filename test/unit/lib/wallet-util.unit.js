@@ -13,6 +13,12 @@ import utilMocksLib from "../../mocks/wallet-util-mock.js";
 const assert = chai.assert;
 const walletCreate = new WalletCreate();
 const walletRemove = new WalletRemove();
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 describe('#Wallet-Util', () => {
     let sandbox;
     let uut;

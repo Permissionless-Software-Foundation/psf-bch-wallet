@@ -1,15 +1,22 @@
-import chai from "chai";
+/* Unit tests for the mc-finish command. */
+
+// Global npm libraries
+import {assert} from "chai";
 import sinon from "sinon";
 import MCFinish from "../../../src/commands/mc-finish.js";
 import msgReadMock from "../../mocks/msg-read-mock.js";
 import WalletCreate from "../../../src/commands/wallet-create.js";
 import MockWallet from "../../mocks/msw-mock.js";
 import mcFinishMocks from "../../mocks/mc-finish-mocks.js";
-/* Unit tests for the mc-finish command. */
-// Global npm libraries
-const assert = chai.assert;
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`;
+
 const walletCreate = new WalletCreate();
+
 describe('mc-finish', () => {
     let uut;
     let sandbox;

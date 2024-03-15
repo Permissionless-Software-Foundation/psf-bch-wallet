@@ -1,7 +1,7 @@
 import chai from "chai";
 import sinon from "sinon";
 import { promises } from "fs";
-import EncryptLib from "bch-encrypt-lib/index";
+import EncryptLib from "bch-encrypt-lib/index.js";
 import MsgSend from "../../../src/commands/msg-send.js";
 import MsgSendMock from "../../mocks/msg-send-mock.js";
 import WalletCreate from "../../../src/commands/wallet-create.js";
@@ -10,7 +10,13 @@ import MockWallet from "../../mocks/msw-mock.js";
 // Global npm libraries
 const assert = chai.assert;
 const fs = { promises }.promises;
+
+// Hack to get __dirname back.
+// https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`;
+
 const walletCreate = new WalletCreate();
 describe('msg-send', () => {
     let uut;
