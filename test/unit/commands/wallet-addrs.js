@@ -1,4 +1,8 @@
-import chai from 'chai'
+/*
+  Unit tests for the wallet-balances command.
+*/
+
+import {assert} from 'chai'
 import sinon from 'sinon'
 import { promises } from 'fs'
 import WalletAddrs from '../../../src/commands/wallet-addrs.js'
@@ -7,15 +11,11 @@ import WalletCreate from '../../../src/commands/wallet-create.js'
 // Hack to get __dirname back.
 // https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
 import * as url from 'url'
-/*
-  Unit tests for the wallet-balances command.
-*/
-'use strict'
-const assert = chai.assert
-const fs = { promises }.promises
-const walletCreate = new WalletCreate()
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`
+
+const fs = { promises }.promises
+const walletCreate = new WalletCreate()
 
 describe('wallet-addrs', () => {
   let uut

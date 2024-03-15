@@ -1,8 +1,13 @@
-import shelljs from 'shelljs'
-import command from '@oclif/command'
 /*
   List the addresses for the selected wallet
 */
+
+// Global npm libraries
+import shelljs from 'shelljs'
+import command from '@oclif/command'
+
+// Local libraries
+import JsonFiles from '../lib/json-files.js'
 
 // Hack to get __dirname back.
 // https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
@@ -11,11 +16,14 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 // const Table = require('cli-table')
 const { Command, flags } = command
+
 class WalletAddrs extends Command {
   constructor (argv, config) {
     super(argv, config)
+
     // Encapsulate dependencies.
     this.shelljs = shelljs
+    this.jsonFiles = new JsonFiles()
   }
 
   async run () {
@@ -23,6 +31,7 @@ class WalletAddrs extends Command {
       const { flags } = this.parse(WalletAddrs)
       // Validate input flags
       this.validateFlags(flags)
+
       const filename = `${__dirname.toString()}/../../.wallets/${flags.name}.json`
       return this.getAddrs(filename)
     } catch (err) {
@@ -33,7 +42,9 @@ class WalletAddrs extends Command {
 
   getAddrs (filename) {
     try {
-      const walletData = walletJSON.wallet
+      // const walletData = walletJSON.wallet
+      const walletData = this.jsonFiles.readJSON(filename)
+
       // console.log('walletData: ', walletData)
       console.log(' ')
       console.log(`Cash Address: ${walletData.cashAddress}`)

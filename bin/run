@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
-require('@oclif/command').run()
-.then(require('@oclif/command/flush'))
-.catch(require('@oclif/errors/handle'))
+// require('@oclif/command').run()
+// .then(require('@oclif/command/flush'))
+// .catch(require('@oclif/errors/handle'))
+
+import command from '@oclif/command'
+import flush from '@oclif/command/flush.js'
+import handle from '@oclif/errors/handle.js'
+
+async function start() {
+  await command.run()
+  await flush()
+  await handle()
+}
+start()

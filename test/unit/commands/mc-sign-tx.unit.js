@@ -1,3 +1,6 @@
+/* Unit tests for the mc-read-tx command. */
+
+// Global npm libraries
 import { assert } from 'chai'
 import sinon from 'sinon'
 import MCSignTx from '../../../src/commands/mc-sign-tx.js'
@@ -5,8 +8,6 @@ import msgReadMock from '../../mocks/msg-read-mock.js'
 import WalletCreate from '../../../src/commands/wallet-create.js'
 import MockWallet from '../../mocks/msw-mock.js'
 import MsgSendMock from '../../mocks/msg-send-mock.js'
-/* Unit tests for the mc-read-tx command. */
-// Global npm libraries
 
 // Hack to get __dirname back.
 // https://blog.logrocket.com/alternatives-dirname-node-js-es-modules/
@@ -15,25 +16,31 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`
 
 const walletCreate = new WalletCreate()
+
 describe('mc-sign-tx', () => {
   let uut
   let sandbox
   let mockWallet
+
   before(async () => {
     await walletCreate.createWallet(filename)
   })
+
   beforeEach(async () => {
     sandbox = sinon.createSandbox()
     uut = new MCSignTx()
     uut.Read = msgReadMock.Read
     mockWallet = new MockWallet()
   })
+
   afterEach(() => {
     sandbox.restore()
   })
+
   // after(() => {
   //   delete require.cache['bitcore-lib-cash']
   // })
+
   describe('#validateFlags()', () => {
     it('validateFlags() should return true .', () => {
       const flags = {
@@ -42,6 +49,7 @@ describe('mc-sign-tx', () => {
       }
       assert.equal(uut.validateFlags(flags), true, 'return true')
     })
+
     it('validateFlags() should throw error if txid is not supplied.', () => {
       try {
         const flags = {}
@@ -51,6 +59,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'You must specify a txid with the -t flag.', 'Expected error message.')
       }
     })
+
     it('validateFlags() should throw error if wallet name is not supplied.', () => {
       try {
         const flags = {
@@ -63,6 +72,7 @@ describe('mc-sign-tx', () => {
       }
     })
   })
+
   describe('#instanceLibs', () => {
     it('should instantiate the different libraries', async () => {
       // Mock dependencies and force desired code path
@@ -77,6 +87,7 @@ describe('mc-sign-tx', () => {
       assert.equal(result, true)
     })
   })
+
   describe('#getHashFromTx()', () => {
     it('should throw an error if txData is not provided.', async () => {
       // Mock dependencies and force desired code path
@@ -88,6 +99,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'txData object is required.', 'Expected error message.')
       }
     })
+
     it('should throw an error if ipfs hash not found.', async () => {
       // Mock dependencies and force desired code path
       sandbox.stub(uut.walletUtil, 'instanceWallet').resolves(mockWallet)
@@ -103,6 +115,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'Message not found!', 'Expected error message.')
       }
     })
+
     it('should return hash from tx', async () => {
       // Mock dependencies and force desired code path
       sandbox.stub(uut.walletUtil, 'instanceWallet').resolves(mockWallet)
@@ -115,6 +128,7 @@ describe('mc-sign-tx', () => {
       assert.isString(result)
     })
   })
+
   describe('#getAndDecrypt', () => {
     it('should download and decrypt a message from the P2WDB', async () => {
       // Mock dependencies and force desired code path
@@ -134,6 +148,7 @@ describe('mc-sign-tx', () => {
       assert.include(result, 'This is a test of the refactor')
     })
   })
+
   describe('#msgRead()', () => {
     it('should exit with error status if called without flags', async () => {
       try {
@@ -143,6 +158,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'Wallet name is required.', 'Should throw expected error.')
       }
     })
+
     it('should read read message.', async () => {
       // Mock dependencies and force desired code path
       sandbox.stub(uut.walletUtil, 'instanceWallet').resolves(mockWallet)
@@ -163,6 +179,7 @@ describe('mc-sign-tx', () => {
       assert.include(result.message, 'test message')
     })
   })
+
   describe('#signTx', () => {
     it('should sign a the transaction', async () => {
       // Mock data
@@ -172,6 +189,7 @@ describe('mc-sign-tx', () => {
           hash: 'test-hash'
         }
       }
+
       class MockTx {
         sign () {
           const getSignatures = () => {
@@ -188,10 +206,13 @@ describe('mc-sign-tx', () => {
           return obj
         }
       }
+
       class PrivKey {
       }
+
       sandbox.stub(uut.bitcore, 'Transaction').returns(new MockTx())
       sandbox.stub(uut.bitcore, 'PrivateKey').returns(new PrivKey())
+
       // Mock dependencies and force desired code path
       sandbox.stub(uut.walletUtil, 'instanceWallet').resolves(mockWallet)
       const flags = {
@@ -203,16 +224,18 @@ describe('mc-sign-tx', () => {
       // console.log('result: ', result)
       assert.include(result, 'test-sig')
     })
+
     it('should catch and throw errors', async () => {
       try {
         await uut.signTx()
         assert.fail('Unexpected code path')
       } catch (err) {
         // console.log('err: ', err.message)
-        assert.include(err.message, 'Unexpected token')
+        assert.include(err.message, 'not valid JSON')
       }
     })
   })
+
   describe('#encryptMsg()', () => {
     it('should return the encrypted message.', async () => {
       // Initiate libraries
@@ -226,6 +249,7 @@ describe('mc-sign-tx', () => {
       const result = await uut.encryptMsg(pubKey, msg)
       assert.isString(result)
     })
+
     it('should throw an error if pubKey is not provided.', async () => {
       try {
         await uut.encryptMsg()
@@ -234,6 +258,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'pubKey must be a string', 'Expected error message.')
       }
     })
+
     it('should throw an error if msg is not provided.', async () => {
       try {
         const pubKey = MsgSendMock.getPubkeyResult.pubkey.publicKey
@@ -244,6 +269,7 @@ describe('mc-sign-tx', () => {
       }
     })
   })
+
   describe('#signalMessage()', () => {
     it('should throw an error if hash is not provided.', async () => {
       try {
@@ -253,6 +279,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'hash must be a string', 'Expected error message.')
       }
     })
+
     it('should throw an error if bchAddress is not provided.', async () => {
       try {
         const hash = 'QmYJXDxuNjwFuAYaUdADPnxKZJhQSsx69Ww2rGk6VmAFQu'
@@ -262,6 +289,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'bchAddress must be a string', 'Expected error message.')
       }
     })
+
     it('should throw an error if subject is not provided.', async () => {
       try {
         const hash = 'QmYJXDxuNjwFuAYaUdADPnxKZJhQSsx69Ww2rGk6VmAFQu'
@@ -272,6 +300,7 @@ describe('mc-sign-tx', () => {
         assert.include(err.message, 'subject must be a string', 'Expected error message.')
       }
     })
+
     it('should return transaction hex.', async () => {
       const bchAddress = 'bitcoincash:qpufm97hppty67chexq4p53vc29mzg437vwp7huaa3'
       const hash = 'QmYJXDxuNjwFuAYaUdADPnxKZJhQSsx69Ww2rGk6VmAFQu'
@@ -285,6 +314,7 @@ describe('mc-sign-tx', () => {
       const result = await uut.signalMessage(hash, bchAddress, subject)
       assert.isString(result)
     })
+
     it('should throw error if cant build the tx', async () => {
       try {
         const bchAddress = 'bitcoincash:qpufm97hppty67chexq4p53vc29mzg437vwp7huaa3'
@@ -303,6 +333,7 @@ describe('mc-sign-tx', () => {
       }
     })
   })
+
   describe('#encryptAndUpload', () => {
     it('should encrypt and send signature to originator', async () => {
       const inObj = {
@@ -325,17 +356,20 @@ describe('mc-sign-tx', () => {
       assert.equal(result, true)
     })
   })
+
   describe('#run()', () => {
     it('should return 0 and display error.message on empty flags', async () => {
       sandbox.stub(uut, 'parse').returns({ flags: {} })
       const result = await uut.run()
       assert.equal(result, 0)
     })
+
     it('should handle an error without a message', async () => {
       sandbox.stub(uut, 'parse').throws({})
       const result = await uut.run()
       assert.equal(result, 0)
     })
+
     it('should run the run() function', async () => {
       // Mock dependencies
       const flags = {
