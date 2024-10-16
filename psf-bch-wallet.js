@@ -7,8 +7,8 @@
 import { Command } from 'commander'
 
 // Local libraries
-import Bar from './commands/bar.js'
-import WalletCreate from './commands/wallet-create.js'
+import Bar from './src/commands/bar.js'
+import WalletCreate from './src/commands/wallet-create.js'
 
 
 // Instantiate the subcommands
@@ -23,7 +23,7 @@ program
   .description('A command-line BCH and SLP token wallet.')
 
   // Define the foo command
-  program.command('foo <name> [destination]', 'Run the foo command', {executableFile: './commands/foo.js'})
+  program.command('foo <name> [destination]', 'Run the foo command', {executableFile: './src/commands/foo.js'})
 
   // Define the bar command
   program.command('bar')
