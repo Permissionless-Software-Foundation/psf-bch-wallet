@@ -8,10 +8,12 @@ import { Command } from 'commander'
 
 // Local libraries
 import Bar from './commands/bar.js'
+import WalletCreate from './commands/wallet-create.js'
 
 
 // Instantiate the subcommands
 const bar = new Bar()
+const walletCreate = new WalletCreate()
 
 const program = new Command();
 
@@ -21,12 +23,20 @@ program
   .description('A command-line BCH and SLP token wallet.')
 
   // Define the foo command
-  .command('foo <name> [destination]', 'Run the foo command', {executableFile: './commands/foo.js'})
+  program.command('foo <name> [destination]', 'Run the foo command', {executableFile: './commands/foo.js'})
 
   // Define the bar command
-  .command('bar')
+  program.command('bar')
   .description('Open a wallet named with -n <name>')
   .option('-n, --name <string>', 'wallet name')
+  .option('-d --description <string>', 'what the wallet is being used for' )
   .action(bar.run)
+
+  // Define the wallet-create command
+  program.command('wallet-create')
+  .description('Create a new wallet with name (-n <name>) and description (-d)')
+  .option('-n, --name <string>', 'wallet name')
+  .option('-d --description <string>', 'what the wallet is being used for' )
+  .action(walletCreate.run)
 
 program.parseAsync(process.argv);
