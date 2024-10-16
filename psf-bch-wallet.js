@@ -16,34 +16,17 @@ const bar = new Bar()
 const program = new Command();
 
 program
+  // Define the psf-bch-wallet app options
   .name('psf-bch-wallet')
   .description('A command-line BCH and SLP token wallet.')
+
+  // Define the foo command
   .command('foo <name> [destination]', 'Run the foo command', {executableFile: './commands/foo.js'})
-  // .command('bar <name> [destination]', 'Run the bar command', {executableFile: './commands/bar.js'})
+
+  // Define the bar command
   .command('bar')
   .description('Open a wallet named with -n <name>')
-  // .argument('<name>')
   .option('-n, --name <string>', 'wallet name')
   .action(bar.run)
-
-// program.command('foo')
-//   .description('Split a string into substrings and display as an array')
-//   .argument('<string>', 'string to split')
-//   .option('--first', 'display just the first substring')
-//   .option('-s, --separator <char>', 'separator character', ',')
-//   .action((str, options) => {
-//     const limit = options.first ? 1 : undefined;
-//     console.log(str.split(options.separator, limit));
-//   });
-//
-//   program.command('bar')
-//     .description('Split a string into substrings and display as an array')
-//     .argument('<string>', 'string to split')
-//     .option('--first', 'display just the first substring')
-//     .option('-s, --separator <char>', 'separator character', ',')
-//     .action((str, options) => {
-//       const limit = options.first ? 1 : undefined;
-//       console.log(str.split(options.separator, limit));
-//     });
 
 program.parseAsync(process.argv);
