@@ -22,5 +22,13 @@
     "semantic-release": "24.1.2",
     "sinon": "19.0.2",
     "standard": "17.1.2"
+  },
+  "release": {
+    "publish": [
+      {
+        "path": "@semantic-release/npm",
+        "npmPublish": false
+      }
+    ]
   }
 }
