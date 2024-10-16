@@ -36,9 +36,13 @@ class WalletCreate {
 
       console.log(`wallet-create executed with name ${flags.name} and description ${flags.description}`)
 
-      await this.createWallet(filename, flags.description)
+      const walletData = await this.createWallet(filename, flags.description)
+      // console.log('walletData: ', walletData)
+
+      return walletData
     } catch (err) {
       console.error('Error in WalletCreate.run(): ', err)
+      return 0
     }
   }
 
