@@ -12,7 +12,7 @@ import WalletUtil from '../lib/wallet-util.js'
 const __dirname = import.meta.dirname
 
 class WalletCreate {
-  constructor() {
+  constructor () {
     // Encapsulate all dependencies
     this.BchWallet = BchWallet
     this.walletUtil = new WalletUtil()
@@ -23,7 +23,7 @@ class WalletCreate {
     this.createWallet = this.createWallet.bind(this)
   }
 
-  async run(flags) {
+  async run (flags) {
     try {
       this.validateFlags(flags)
 
@@ -37,13 +37,12 @@ class WalletCreate {
       console.log(`wallet-create executed with name ${flags.name} and description ${flags.description}`)
 
       await this.createWallet(filename, flags.description)
-
-    } catch(err) {
+    } catch (err) {
       console.error('Error in WalletCreate.run(): ', err)
     }
   }
 
-  validateFlags(flags) {
+  validateFlags (flags) {
     // Exit if wallet not specified.
     const name = flags.name
     if (!name || name === '') {

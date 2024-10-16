@@ -3,10 +3,10 @@
 */
 
 // Global npm libraries.
-import {promises as fs} from 'fs'
+import { promises as fs } from 'fs'
 
 class WalletUtil {
-  constructor() {
+  constructor () {
     // Encapsulate all dependencies
     this.fs = fs
 
@@ -14,7 +14,8 @@ class WalletUtil {
     this.saveWallet = this.saveWallet.bind(this)
   }
 
-  async saveWallet(filename, walletData) {
+  // Save wallet data to a JSON file.
+  async saveWallet (filename, walletData) {
     await this.fs.writeFile(filename, JSON.stringify(walletData, null, 2))
 
     return true

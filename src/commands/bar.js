@@ -8,7 +8,7 @@
 // start()
 
 class Bar {
-  run(args) {
+  run (args) {
     console.log('Bar.run() executed with args: ', args)
   }
 }

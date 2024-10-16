@@ -30,6 +30,6 @@ Create a new BCH wallet:
 
 ## Change History
 
-psf-bch-wallet v2 became too large in scope and as a result the code base grew too complex. The code was also stuck in CommonJS format. Version 3 strives to create a much simpler code base, which can be forked to add on new use-cases and thereby grow in scope in a more controlled fashion.
+psf-bch-wallet v2 became too large in scope and as a result the code base grew too complex. The code was also stuck in CommonJS format. Version 3 uses ESM format, and strives to create a much simpler code base, which can be forked to add on new use-cases and thereby grow in scope in a more controlled fashion.
 
 v2 also used the [oclif CLI framework](https://oclif.io/), which no longer provides good support for JavaScript-native software. v3 has switched to the [Commander.js](https://github.com/tj/commander.js/) library.
