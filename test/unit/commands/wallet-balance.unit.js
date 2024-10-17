@@ -123,33 +123,14 @@ describe('#wallet-create', () => {
     it('should return wallet instance with updated UTXOs', async () => {
       // Mock dependencies
       uut.walletService = new WalletServiceMock()
-      uut.BchWallet = BchWalletMock
+      uut.bchWallet = new BchWalletMock()
 
-      const result = await uut.getBalances(filename)
+      const result = await uut.getBalances()
       // console.log('result: ', result)
 
       assert.property(result, 'walletInfo')
       assert.property(result, 'utxos')
       assert.property(result.utxos, 'utxoStore')
-    })
-
-    // Dev Note: Because this test manipulates environment variables that effect
-    // the mock data, this test should come last.
-    it('should throw an error on network error', async () => {
-      try {
-        // Mock dependencies
-        uut.walletService = new WalletServiceMock()
-        uut.BchWallet = BchWalletMock
-        process.env.NO_UTXO = true
-
-        await uut.getBalances(filename)
-
-        process.env.NO_UTXO = false
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        assert.include(err.message, 'UTXOs failed to update. Try again.')
-      }
     })
   })
 })

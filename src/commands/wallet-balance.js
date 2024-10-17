@@ -4,16 +4,12 @@
 
 // Global npm libraries
 import BchWallet from 'minimal-slp-wallet'
-import { readFile } from 'fs/promises'
 import collect from 'collect.js'
 import fs from 'fs'
 
 // Local libraries
 import WalletUtil from '../lib/wallet-util.js'
 import config from '../../config/index.js'
-
-// Global variables
-const __dirname = import.meta.dirname
 
 class WalletBalance {
   constructor () {
@@ -36,13 +32,12 @@ class WalletBalance {
     try {
       this.validateFlags(flags)
 
-      // Generate a filename for the wallet file.
-      const filename = `${__dirname.toString()}/../../.wallets/${
-        flags.name
-      }.json`
+      // Initialize the wallet.
+      this.bchWallet = await this.walletUtil.instanceWallet(flags.name)
+      await this.bchWallet.initialize()
 
       // Get the wallet with updated UTXO data.
-      const walletData = await this.getBalances(filename)
+      const walletData = await this.getBalances()
 
       // Display wallet balances on the screen.
       this.displayBalance(walletData, flags)
@@ -67,25 +62,8 @@ class WalletBalance {
   // Generate a new wallet instance and update it's balance. This function returns
   // a handle to an instance of the wallet library.
   // This function is called by other commands in this app.
-  async getBalances (filename) {
+  async getBalances () {
     try {
-      // Load the wallet file.
-      const walletStr = await readFile(filename)
-      let walletData = JSON.parse(walletStr)
-      walletData = walletData.wallet
-
-      const advancedConfig = {}
-      advancedConfig.restURL = this.config.restURL
-      advancedConfig.interface = this.config.interface
-      advancedConfig.hdPath = walletData.hdPath
-
-      this.bchWallet = new this.BchWallet(walletData.mnemonic, advancedConfig)
-      // console.log('bchWallet: ', this.bchWallet)
-
-      // Wait for the wallet to initialize and retrieve UTXO data from the
-      // blockchain.
-      await this.bchWallet.initialize()
-
       // Loop through each BCH UTXO and add up the balance.
       let satBalance = 0
       for (let i = 0; i < this.bchWallet.utxos.utxoStore.bchUtxos.length; i++) {
