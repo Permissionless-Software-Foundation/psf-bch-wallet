@@ -12,8 +12,10 @@
   "author": "Chris Troutner",
   "license": "MIT",
   "dependencies": {
+    "cli-table": "0.3.11",
     "commander": "12.1.0",
-    "minimal-slp-wallet": "5.12.1"
+    "minimal-slp-wallet": "5.12.1",
+    "shelljs": "0.8.5"
   },
   "devDependencies": {
     "c8": "10.1.2",
