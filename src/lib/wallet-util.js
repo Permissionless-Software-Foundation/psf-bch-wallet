@@ -5,6 +5,8 @@
 // Global npm libraries.
 import { promises as fs } from 'fs'
 
+// Local libraries
+
 class WalletUtil {
   constructor () {
     // Encapsulate all dependencies

@@ -10,11 +10,13 @@ import { Command } from 'commander'
 import WalletCreate from './src/commands/wallet-create.js'
 import WalletList from './src/commands/wallet-list.js'
 import WalletAddrs from './src/commands/wallet-addrs.js'
+import WalletBalance from './src/commands/wallet-balance.js'
 
 // Instantiate the subcommands
 const walletCreate = new WalletCreate()
 const walletList = new WalletList()
 const walletAddrs = new WalletAddrs()
+const walletBalance = new WalletBalance()
 
 const program = new Command()
 
@@ -39,5 +41,10 @@ program.command('wallet-addrs')
   .description('List the different addresses for a wallet.')
   .option('-n, --name <string>', 'wallet name')
   .action(walletAddrs.run)
+
+program.command('wallet-balance')
+  .description('Get balances in BCH and SLP tokens held by the wallet.')
+  .option('-n, --name <string>', 'wallet name')
+  .action(walletBalance.run)
 
 program.parseAsync(process.argv)
