@@ -50,7 +50,7 @@ class WalletCreate {
     // Exit if wallet not specified.
     const name = flags.name
     if (!name || name === '') {
-      throw new Error('You must specify a wallet with the -n flag.')
+      throw new Error('You must specify a wallet name with the -n flag.')
     }
 
     return true

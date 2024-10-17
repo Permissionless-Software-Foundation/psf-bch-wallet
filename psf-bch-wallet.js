@@ -9,10 +9,12 @@ import { Command } from 'commander'
 // Local libraries
 import WalletCreate from './src/commands/wallet-create.js'
 import WalletList from './src/commands/wallet-list.js'
+import WalletAddrs from './src/commands/wallet-addrs.js'
 
 // Instantiate the subcommands
 const walletCreate = new WalletCreate()
 const walletList = new WalletList()
+const walletAddrs = new WalletAddrs()
 
 const program = new Command()
 
@@ -32,5 +34,10 @@ program.command('wallet-create')
 program.command('wallet-list')
   .description('List existing wallets')
   .action(walletList.run)
+
+program.command('wallet-addrs')
+  .description('List the different addresses for a wallet.')
+  .option('-n, --name <string>', 'wallet name')
+  .action(walletAddrs.run)
 
 program.parseAsync(process.argv)
