@@ -8,11 +8,11 @@ import sinon from 'sinon'
 import { promises as fs } from 'fs'
 
 // Local libraries
-import WalletCreate from '../../src/commands/wallet-create.js'
-import BchWalletMock from '../mocks/msw-mock.js'
+import WalletCreate from '../../../src/commands/wallet-create.js'
+import BchWalletMock from '../../mocks/msw-mock.js'
 
 const __dirname = import.meta.dirname
-const filename = `${__dirname.toString()}/../../.wallets/test123.json`
+const filename = `${__dirname.toString()}/../../../.wallets/test123.json`
 
 describe('#wallet-create', () => {
   let uut

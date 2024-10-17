@@ -8,12 +8,12 @@ import sinon from 'sinon'
 import { promises as fs } from 'fs'
 
 // Local libraries
-import WalletCreate from '../../src/commands/wallet-create.js'
-import WalletAddrs from '../../src/commands/wallet-addrs.js'
+import WalletCreate from '../../../src/commands/wallet-create.js'
+import WalletAddrs from '../../../src/commands/wallet-addrs.js'
 const walletCreate = new WalletCreate()
 
 const __dirname = import.meta.dirname
-const filename = `${__dirname.toString()}/../../.wallets/test123.json`
+const filename = `${__dirname.toString()}/../../../.wallets/test123.json`
 
 describe('#wallet-addrs', () => {
   let uut
