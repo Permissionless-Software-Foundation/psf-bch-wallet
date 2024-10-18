@@ -7,12 +7,16 @@
 import { Command } from 'commander'
 
 // Local libraries
-import Bar from './src/commands/bar.js'
 import WalletCreate from './src/commands/wallet-create.js'
+import WalletList from './src/commands/wallet-list.js'
+import WalletAddrs from './src/commands/wallet-addrs.js'
+import WalletBalance from './src/commands/wallet-balance.js'
 
 // Instantiate the subcommands
-const bar = new Bar()
 const walletCreate = new WalletCreate()
+const walletList = new WalletList()
+const walletAddrs = new WalletAddrs()
+const walletBalance = new WalletBalance()
 
 const program = new Command()
 
@@ -21,21 +25,26 @@ program
   .name('psf-bch-wallet')
   .description('A command-line BCH and SLP token wallet.')
 
-// Define the foo command
-program.command('foo <name> [destination]', 'Run the foo command', { executableFile: './src/commands/foo.js' })
-
-// Define the bar command
-program.command('bar')
-  .description('Open a wallet named with -n <name>')
-  .option('-n, --name <string>', 'wallet name')
-  .option('-d --description <string>', 'what the wallet is being used for')
-  .action(bar.run)
-
 // Define the wallet-create command
 program.command('wallet-create')
   .description('Create a new wallet with name (-n <name>) and description (-d)')
   .option('-n, --name <string>', 'wallet name')
   .option('-d --description <string>', 'what the wallet is being used for')
   .action(walletCreate.run)
+
+// Define the wallet-list command
+program.command('wallet-list')
+  .description('List existing wallets')
+  .action(walletList.run)
+
+program.command('wallet-addrs')
+  .description('List the different addresses for a wallet.')
+  .option('-n, --name <string>', 'wallet name')
+  .action(walletAddrs.run)
+
+program.command('wallet-balance')
+  .description('Get balances in BCH and SLP tokens held by the wallet.')
+  .option('-n, --name <string>', 'wallet name')
+  .action(walletBalance.run)
 
 program.parseAsync(process.argv)
