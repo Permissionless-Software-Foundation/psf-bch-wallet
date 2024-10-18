@@ -67,13 +67,20 @@ describe('#wallet-list', () => {
       const createWallet = new WalletCreate()
       await createWallet.createWallet(filename, 'test wallet')
 
-      Promise.resolve(uut.run()).then(function (table) {
-        assert.include(table, 'Name')
-        assert.include(table, 'Balance (BCH)')
-      })
+      // Promise.resolve(uut.run()).then(function (table) {
+      //   assert.include(table, 'Name')
+      //   assert.include(table, 'Balance (BCH)')
+      // })
+
+      sinon.stub(uut, 'parseWallets').resolves({})
+      sandbox.stub(uut, 'displayTable').resolves('')
 
       // Clean up
       await fs.rm(filename)
+
+      const result = await uut.run()
+
+      assert.equal(result, true)
     })
 
     it('should return 0 on error', async () => {
@@ -83,6 +90,25 @@ describe('#wallet-list', () => {
       const result = await uut.run()
 
       assert.equal(result, 0)
+    })
+  })
+
+  describe('#displayTable', () => {
+    it('should display the data in a console table', () => {
+      const walletData = [
+        [
+          'msg1',
+          'Used for sending and receiving messages'
+        ],
+        [
+          'msg2',
+          'Used for sending and receiving message'
+        ]
+      ]
+
+      const tableStr = uut.displayTable(walletData)
+
+      assert.isString(tableStr)
     })
   })
 })

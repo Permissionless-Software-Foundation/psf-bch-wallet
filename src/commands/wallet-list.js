@@ -27,7 +27,9 @@ class WalletList {
       const walletData = await this.parseWallets()
       // console.log(`walletData: ${JSON.stringify(walletData, null, 2)}`)
 
-      return this.displayTable(walletData)
+      this.displayTable(walletData)
+
+      return true
     } catch (err) {
       console.error('Error in wallet-list: ', err)
       return 0
