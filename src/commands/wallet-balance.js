@@ -133,15 +133,15 @@ class WalletBalance {
       }
 
       // If verbose flag is set, display UTXO information.
-      if (flags.verbose) {
-        console.log(
-          `\nUTXO information:\n${JSON.stringify(
-            walletData.utxos.utxoStore,
-            null,
-            2
-          )}`
-        )
-      }
+      // if (flags.verbose) {
+      //   console.log(
+      //     `\nUTXO information:\n${JSON.stringify(
+      //       walletData.utxos.utxoStore,
+      //       null,
+      //       2
+      //     )}`
+      //   )
+      // }
 
       return true
     } catch (err) {

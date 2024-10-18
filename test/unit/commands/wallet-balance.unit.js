@@ -17,7 +17,7 @@ const walletCreate = new WalletCreate()
 const __dirname = import.meta.dirname
 const filename = `${__dirname.toString()}/../../../.wallets/test123.json`
 
-describe('#wallet-create', () => {
+describe('#wallet-balance', () => {
   let uut
   let sandbox
 
@@ -131,6 +131,58 @@ describe('#wallet-create', () => {
       assert.property(result, 'walletInfo')
       assert.property(result, 'utxos')
       assert.property(result.utxos, 'utxoStore')
+    })
+
+    it('should catch and throw errors', async () => {
+      try {
+        await uut.getBalances()
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        // console.log('err: ', err)
+        assert.include(err.message, 'read properties')
+      }
+    })
+  })
+
+  describe('#validateFlags()', () => {
+    it('validateFlags() should return true if name is supplied.', () => {
+      assert.equal(uut.validateFlags({ name: 'test' }), true, 'return true')
+    })
+
+    it('validateFlags() should throw error if name is not supplied.', () => {
+      try {
+        uut.validateFlags({})
+      } catch (err) {
+        assert.include(
+          err.message,
+          'You must specify a wallet name with the -n flag',
+          'Expected error message.'
+        )
+      }
+    })
+  })
+
+  describe('#run', () => {
+    it('should execute the run function', async () => {
+      // Mock dependencies
+      sandbox.stub(uut, 'getBalances').resolves({})
+      sandbox.stub(uut, 'displayBalance').resolves({})
+      sandbox.stub(uut.walletUtil, 'instanceWallet').resolves(new BchWalletMock())
+
+      const flags = {
+        name: 'test123'
+      }
+
+      const result = await uut.run(flags)
+
+      assert.equal(result, true)
+    })
+
+    it('should handle an error without a message', async () => {
+      const result = await uut.run()
+
+      assert.equal(result, 0)
     })
   })
 })
