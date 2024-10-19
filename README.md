@@ -18,15 +18,65 @@ This software requires node.js v20 or higher. Instructions for installation:
 
 - `node psf-bch-wallet.js help`
 
-### Create a Wallet
+### Wallet Commands
+
+#### Create a Wallet
 
 Create a new BCH wallet:
 
 - `node psf-bch-wallet.js wallet-create -n wallet1 -d "My first wallet"`
 
-#### Arguments
+##### Arguments
 - Use the `-n` flag to give your wallet a name (required).
 - And the `-d` flag to give it a description (optional).
+
+
+#### List Wallets
+
+List the wallets managed by this application:
+
+- `node psf-bch-wallet.js wallet-list`
+
+##### Arguments:
+- none
+
+
+#### Wallet Addresses
+
+Display the addresses for receiving funds to this wallet:
+
+- `node psf-bch-wallet.js wallet-addrs -n wallet1`
+
+##### Arguments:
+
+- Use the `-n` flag to specify which wallet to use (required).
+
+
+#### Wallet Balance
+
+Check the balance of BCH and SLP tokens held by this wallet.
+
+- `node psf-bch-wallet.js wallet-balance -n wallet1`
+
+##### Arguments:
+
+- Use the `-n` flag to specify the wallet to check (required).
+
+
+### Send Cryptocurrency
+
+Use these commands to send BCH and SLP tokens.
+
+#### Send BCH
+
+Send BCH from the wallet to another address.
+
+- `node psf-bch-wallet.js send-bch -n wallet1 -q 0.00001 -a bitcoincash:qr2zqrnqdulfmeqs2qe9c5p605lrwe90v5v735s2jl`
+
+##### Arguments:
+- Use the `-n` flag to specify the wallet holding BCH (required).
+- Use the `-q` flag to specify the quantity to send in BCH (required).
+- use the `-a` flag to specify the receiver of the BCH (required).
 
 ## Change History
 
