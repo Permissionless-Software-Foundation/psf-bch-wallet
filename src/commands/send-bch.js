@@ -29,7 +29,6 @@ class SendBch {
 
       // Initialize the wallet.
       this.bchWallet = await this.walletUtil.instanceWallet(flags.name)
-      await this.bchWallet.initialize()
 
       // Send the BCH
       const txid = await this.sendBch(flags)
@@ -38,6 +37,7 @@ class SendBch {
       console.log('\nView this transaction on a block explorer:')
       console.log(`https://bch.loping.net/tx/${txid}`)
 
+      return true
     } catch(err) {
       console.error('Error in send-bch: ', err)
       return 0
@@ -45,7 +45,7 @@ class SendBch {
 
   }
 
-  validateFlags (flags) {
+  validateFlags (flags = {}) {
     // Exit if wallet not specified.
     const name = flags.name
     if (!name || name === '') {
@@ -75,11 +75,11 @@ class SendBch {
       await this.bchWallet.initialize()
 
       const walletBalance = await this.bchWallet.getBalance()
-      console.log('walletBalance: ', walletBalance)
+      // console.log('walletBalance: ', walletBalance)
 
       if (walletBalance < flags.qty) {
         throw new Error(
-          `Insufficient funds. You are trying to send ${flags.qty} BCH, but the wallet only has ${walletData.bchBalance} BCH`
+          `Insufficient funds. You are trying to send ${flags.qty} BCH, but the wallet only has ${walletBalance} BCH`
         )
       }
 
