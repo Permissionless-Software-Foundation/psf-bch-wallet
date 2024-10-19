@@ -3,16 +3,12 @@
 */
 
 // Global npm libraries
-import BchWallet from 'minimal-slp-wallet'
-import collect from 'collect.js'
-import fs from 'fs'
 
 // Local libraries
 import WalletUtil from '../lib/wallet-util.js'
-import config from '../../config/index.js'
 
 class SendBch {
-  constructor() {
+  constructor () {
     // Encapsulate dependencies
     this.walletUtil = new WalletUtil()
     this.bchWallet = {} // Placeholder for instance of wallet.
@@ -23,7 +19,7 @@ class SendBch {
     this.sendBch = this.sendBch.bind(this)
   }
 
-  async run(flags) {
+  async run (flags) {
     try {
       this.validateFlags(flags)
 
@@ -38,11 +34,10 @@ class SendBch {
       console.log(`https://bch.loping.net/tx/${txid}`)
 
       return true
-    } catch(err) {
+    } catch (err) {
       console.error('Error in send-bch: ', err)
       return 0
     }
-
   }
 
   validateFlags (flags = {}) {
@@ -69,7 +64,7 @@ class SendBch {
 
   // Give an instance of a wallet, an address, and a quantity, send the BCH.
   // Returns a TXID from a broadcasted transaction.
-  async sendBch(flags) {
+  async sendBch (flags) {
     try {
       // Update the wallet UTXOs.
       await this.bchWallet.initialize()
@@ -93,12 +88,11 @@ class SendBch {
       const txid = await this.bchWallet.send(receivers)
 
       return txid
-    } catch(err) {
+    } catch (err) {
       console.error('Error in sendBCH()')
       throw err
     }
   }
-
 }
 
 export default SendBch

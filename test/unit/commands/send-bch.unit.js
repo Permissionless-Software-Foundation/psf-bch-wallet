@@ -80,10 +80,9 @@ describe('#send-bch', () => {
         await uut.sendBch(flags)
 
         assert.fail('Unexpected code path')
-      } catch(err) {
+      } catch (err) {
         assert.include(err.message, 'Insufficient funds.')
       }
-
     })
   })
 
