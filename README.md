@@ -43,13 +43,13 @@ List the wallets managed by this application:
 
 #### Wallet Addresses
 
-Display the addresses for ending funds to this wallet:
+Display the addresses for receiving funds to this wallet:
 
 - `node psf-bch-wallet.js wallet-addrs -n wallet1`
 
 ##### Arguments:
 
-- Use the `-n` flag to give your wallet a name (required).
+- Use the `-n` flag to specify which wallet to use (required).
 
 
 #### Wallet Balance
