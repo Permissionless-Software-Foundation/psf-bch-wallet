@@ -12,6 +12,7 @@ import WalletList from './src/commands/wallet-list.js'
 import WalletAddrs from './src/commands/wallet-addrs.js'
 import WalletBalance from './src/commands/wallet-balance.js'
 import SendBch from './src/commands/send-bch.js'
+import SendTokens from './src/commands/send-tokens.js'
 
 // Instantiate the subcommands
 const walletCreate = new WalletCreate()
@@ -19,6 +20,7 @@ const walletList = new WalletList()
 const walletAddrs = new WalletAddrs()
 const walletBalance = new WalletBalance()
 const sendBch = new SendBch()
+const sendTokens = new SendTokens()
 
 const program = new Command()
 
@@ -55,5 +57,13 @@ program.command('send-bch')
   .option('-a, --addr <string>', 'address to send BCH to')
   .option('-q, --qty <string>', 'The quantity of BCH to send')
   .action(sendBch.run)
+
+program.command('send-tokens')
+  .description('Send SLP tokens to an address')
+  .option('-n, --name <string>', 'wallet name sending BCH')
+  .option('-a, --addr <string>', 'address to send BCH to')
+  .option('-q, --qty <string>', 'The quantity of BCH to send')
+  .option('-t, --tokenId <string>', 'The token ID of the token to send')
+  .action(sendTokens.run)
 
 program.parseAsync(process.argv)
