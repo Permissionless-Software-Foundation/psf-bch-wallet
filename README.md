@@ -76,7 +76,48 @@ Send BCH from the wallet to another address.
 ##### Arguments:
 - Use the `-n` flag to specify the wallet holding BCH (required).
 - Use the `-q` flag to specify the quantity to send in BCH (required).
-- use the `-a` flag to specify the receiver of the BCH (required).
+- Use the `-a` flag to specify the receiver of the BCH (required).
+
+
+#### Send SLP Tokens
+
+Send an SLP token from the wallet to another address.
+
+- `node psf-bch-wallet.js send-tokens -n wallet1 -q 0.5 -a simpleledger:qrnwvazrjzytmlv9wyvj4pkkc9k2l0fhvs8u479asy -t 38e97c5d7d3585a2cbf3f9580c82ca33985f9cb0845d4dcce220cb709f9538b0`
+
+##### Arguments:
+- Use the `-n` flag to specify the wallet holding tokens (required).
+- Use the `-q` flag to specify the quantity of tokens to send (required).
+- Use the `-a` flag to specify the receiver of the tokens (required).
+- Use the `-t` flag to specify the token ID of the token to send (required).
+
+
+### Cryptography
+
+Use these commands to sign a message to prove ownership of a BCH address, and conversely to verify that a signature is valid.
+
+#### Sign Message
+
+Sign a message with the private key of a wallet.
+
+- `node psf-bch-wallet.js msg-sign -n wallet1 -m "test message"`
+
+##### Arguments:
+- Use the `-n` flag to specify the wallet holding tokens (required).
+- Use the `-m` flag to specify a message to sign (required).
+
+#### Verify Signature
+
+Use a signed message to verify that the send possess the private key associated
+with the public address.
+
+- `node psf-bch-wallet.js msg-verify -a bitcoincash:qr2zqrnqdulfmeqs2qe9c5p605lrwe90v5v735s2jl -m "This is a test message" -s IOdfv+TQNCNIEJ4uvcUJmX9ZCEbkNNv9ad+TLO/JJxzeWDhqx42iBXMPEnthldl9wGx/Fwdjwp1w9532mSXzENM=`
+
+##### Arguments:
+- Use the `-a` flag to specify the BCH address you are verifying ownership of (required).
+- Use the `-m` flag to specify the clear text message that was signed (required).
+- Use the `-s` flag to specify the signature to be verified (required).
+
 
 ## Change History
 
