@@ -14,6 +14,7 @@ import WalletBalance from './src/commands/wallet-balance.js'
 import SendBch from './src/commands/send-bch.js'
 import SendTokens from './src/commands/send-tokens.js'
 import WalletSweep from './src/commands/wallet-sweep.js'
+import MsgSign from './src/commands/msg-sign.js'
 
 // Instantiate the subcommands
 const walletCreate = new WalletCreate()
@@ -23,6 +24,7 @@ const walletBalance = new WalletBalance()
 const sendBch = new SendBch()
 const sendTokens = new SendTokens()
 const walletSweep = new WalletSweep()
+const msgSign = new MsgSign()
 
 const program = new Command()
 
@@ -53,6 +55,12 @@ program.command('wallet-balance')
   .option('-n, --name <string>', 'wallet name')
   .action(walletBalance.run)
 
+program.command('wallet-sweep')
+  .description('Sweep funds from a WIF private key')
+  .option('-n, --name <string>', 'wallet name receiving BCH')
+  .option('-w, --wif <string>', 'WIF private key to sweep')
+  .action(walletSweep.run)
+
 program.command('send-bch')
   .description('Send BCH to an address')
   .option('-n, --name <string>', 'wallet name sending BCH')
@@ -68,10 +76,10 @@ program.command('send-tokens')
   .option('-t, --tokenId <string>', 'The token ID of the token to send')
   .action(sendTokens.run)
 
-program.command('wallet-sweep')
-  .description('Sweep funds from a WIF private key')
-  .option('-n, --name <string>', 'wallet name receiving BCH')
-  .option('-w, --wif <string>', 'WIF private key to sweep')
-  .action(walletSweep.run)
+program.command('msg-sign')
+  .description('Sign a message using the wallets private key')
+  .option('-n, --name <string>', 'wallet to sign the message')
+  .option('-m, --msg <string>', 'Message to sign')
+  .action(msgSign.run)
 
 program.parseAsync(process.argv)
