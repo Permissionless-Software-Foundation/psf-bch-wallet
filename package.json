@@ -12,6 +12,7 @@
   "author": "Chris Troutner",
   "license": "MIT",
   "dependencies": {
+    "bch-token-sweep": "2.2.1",
     "cli-table": "0.3.11",
     "collect.js": "4.36.1",
     "commander": "12.1.0",

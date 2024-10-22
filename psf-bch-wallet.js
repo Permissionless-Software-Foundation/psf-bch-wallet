@@ -13,6 +13,7 @@ import WalletAddrs from './src/commands/wallet-addrs.js'
 import WalletBalance from './src/commands/wallet-balance.js'
 import SendBch from './src/commands/send-bch.js'
 import SendTokens from './src/commands/send-tokens.js'
+import WalletSweep from './src/commands/wallet-sweep.js'
 
 // Instantiate the subcommands
 const walletCreate = new WalletCreate()
@@ -21,6 +22,7 @@ const walletAddrs = new WalletAddrs()
 const walletBalance = new WalletBalance()
 const sendBch = new SendBch()
 const sendTokens = new SendTokens()
+const walletSweep = new WalletSweep()
 
 const program = new Command()
 
@@ -65,5 +67,11 @@ program.command('send-tokens')
   .option('-q, --qty <string>', 'The quantity of BCH to send')
   .option('-t, --tokenId <string>', 'The token ID of the token to send')
   .action(sendTokens.run)
+
+program.command('wallet-sweep')
+  .description('Sweep funds from a WIF private key')
+  .option('-n, --name <string>', 'wallet name receiving BCH')
+  .option('-w, --wif <string>', 'WIF private key to sweep')
+  .action(walletSweep.run)
 
 program.parseAsync(process.argv)
