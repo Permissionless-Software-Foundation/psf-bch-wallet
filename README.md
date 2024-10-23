@@ -1,15 +1,13 @@
-# psf-bch-wallet
+# psf-msg-wallet
 
-This is the third major version (v3) of psf-bch-wallet command-line wallet for Bitcoin Cash (BCH) and SLP tokens.
-
-Version 2 is archived in the [psf-bch-wallet-v2](https://github.com/Permissionless-Software-Foundation/psf-bch-wallet-v2) repository.
+This is a command-line interface (CLI) forked from [psf-bch-wallet](https://github.com/Permissionless-Software-Foundation/psf-bch-wallet). This fork has all the same commands, but adds additional commands around sending an end-to-end encrypted (E2EE) message to any BCH address, similar to email. It also has commands to encrypt and decrypt files using a BCH wallet.
 
 ## Installation
 
 This software requires node.js v20 or higher. Instructions for installation:
 
-- `git clone https://github.com/Permissionless-Software-Foundation/psf-bch-wallet`
-- `cd psf-bch-wallet`
+- `git clone https://github.com/Permissionless-Software-Foundation/psf-msg-wallet`
+- `cd psf-msg-wallet`
 - `npm install`
 
 ## Usage
