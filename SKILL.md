@@ -72,6 +72,26 @@ node psf-bch-wallet.js send-bch -n wallet1 -q 0.00001 -a bitcoincash:qr2zqrnqdul
 
 - `-q` quantity in whole BCH (e.g. `0.00001`) · `-a` destination address.
 - Prints the TXID and an explorer link (`https://bch.loping.net/tx/<txid>`).
+- **Note:** `minimal-slp-wallet` automatically appends a **2,000-sat PSF donation output** to
+  every BCH send (cash flow (a)) — the tx has recipient + donation + change. This is by design;
+  account for it in fee/amount math.
+
+### Verify a transaction on-chain
+
+The printed explorer link (`bch.loping.net`) may be bot-blocked from some IPs. Use the same
+Cash Stack consumer API the wallet talks to instead:
+
+```bash
+# confirm a tx + block height for an address
+curl -s -X POST https://free-bch.fullstack.cash/bch/txHistory \
+  -H 'Content-Type: application/json' \
+  -d '{"address":"bitcoincash:...","sortingOrder":"DESCENDING","limit":5}'
+
+# full vin/vout autopsy for one or more txids
+curl -s -X POST https://free-bch.fullstack.cash/bch/txData \
+  -H 'Content-Type: application/json' \
+  -d '{"txids":["<txid>"]}'
+```
 
 ### Send SLP tokens
 
