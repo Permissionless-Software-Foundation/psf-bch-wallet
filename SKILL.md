@@ -32,6 +32,17 @@ Wallet files follow this shape (fields created by `minimal-slp-wallet`):
 { "wallet": { "mnemonic": "...", "hdPath": "...", "cashAddress": "...", "slpAddress": "...", "legacyAddress": "...", "description": "..." } }
 ```
 
+## Wallet derivation & coin types (SLIP-0044)
+
+BIP-44 level 2 coin types per SLIP-0044 (https://github.com/satoshilabs/slips/blob/master/slip-0044.md):
+
+- **145 = Bitcoin Cash (BCH)** — registered standard for BCH addresses, e.g. `m/44'/145'/0'/0/0`
+- **245 = Simple Ledger Protocol (SLP)** — for SLP token wallets, e.g. `m/44'/245'/0'/0/0`
+
+`minimal-slp-wallet` defaults its `hdPath` to **245** (SLP-oriented). A single mnemonic therefore
+derives DIFFERENT BCH addresses at 145 vs 245. When importing an existing wallet, verify the
+address against both paths (plus coin type 0) before assuming a key mismatch.
+
 ## Commands
 
 Run with `node psf-bch-wallet.js <command>`. Use `help` for the full list.
