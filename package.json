@@ -17,7 +17,7 @@
     "collect.js": "4.36.1",
     "commander": "12.1.0",
     "dotenv": "17.2.3",
-    "minimal-slp-wallet": "5.12.1",
+    "minimal-slp-wallet": "^7.1.7",
     "shelljs": "0.8.5"
   },
   "devDependencies": {
