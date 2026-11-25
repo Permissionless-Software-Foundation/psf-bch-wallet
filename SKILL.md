@@ -149,6 +149,14 @@ in `psf-bch-wallet.js`, and add `.option(...)` definitions. Run unit tests with
 - **Insufficient funds on send:** you may have dust UTXOs; sweep or consolidate first.
 - **Mismatched address format:** the wallet accepts cash / legacy / SLP formats for BCH;
   use the SLP format for token transfers.
+- **Broadcast rejected (HTTP 431 / ECONNRESET):** the Cash Stack consumer API drops
+  txs with more than ~50 inputs. Consolidating or sweeping many dust UTXOs must be
+  chunked to ~50 inputs per tx (e.g. a `--chunk-size`-style control), or use a smaller
+  chunk size if the API still resets.
+- **Consolidation fee reality:** minimal-slp-wallet charges ~148 sats per input plus base
+  fee and always appends the 2,000-sat PSF donation. Sweeping hundreds of dust UTXOs
+  costs tens of thousands of sats in miner fees; the donation output returns to the
+  wallet's own address and remains in-wallet.
 
 ## Change history
 
